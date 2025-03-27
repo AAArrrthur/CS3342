@@ -1,4 +1,3 @@
-package com.example.secondhandexchange.item;
 
 public class Item {
     private String itemId;

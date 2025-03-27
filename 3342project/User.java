@@ -1,6 +1,4 @@
-package com.example.secondhandexchange.user;
-
-public class User {
+public class User implements IUser {
     private String userId;
     private String password;
     private String role; // "buyer", "seller", "both"
@@ -14,26 +12,32 @@ public class User {
     }
 
     // Getter和Setter方法
+    @Override
     public String getUserId() {
         return userId;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @Override
     public String getRole() {
         return role;
     }
 
+    @Override
     public double getCreditScore() {
         return creditScore;
     }
 
+    @Override
     public void updateCreditScore(double score) {
         this.creditScore = score;
     }

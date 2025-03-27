@@ -1,10 +1,10 @@
-package com.example.secondhandexchange.transaction;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class TransactionManager {
-    private Map<String, Transaction> transactions;
+    private Map<String, Transaction> transactions; // 声明为private
 
     public TransactionManager() {
         this.transactions = new HashMap<>();
@@ -23,11 +23,10 @@ public class TransactionManager {
         return transactions.get(transactionId);
     }
 
-    public void confirmPayment(String transactionId) {
+    public void confirmPayment(String transactionId, PaymentStrategy paymentStrategy) {
         Transaction transaction = transactions.get(transactionId);
         if (transaction != null) {
-            transaction.setStatus("Payment Confirmed");
-            System.out.println("Payment confirmed for transaction: " + transactionId);
+            paymentStrategy.pay(transaction);
         } else {
             System.out.println("Transaction does not exist.");
         }
@@ -52,5 +51,18 @@ public class TransactionManager {
         } else {
             System.out.println("Transaction does not exist.");
         }
+    }
+
+    public List<Transaction> getTransactions() {
+        return new ArrayList<>(transactions.values());
+    }
+
+    // 添加一个方法用于管理员监控交易，返回 List<ITransaction>
+    public List<ITransaction> getTransactionsAsITransactionList() {
+        List<ITransaction> result = new ArrayList<>();
+        for (Transaction transaction : transactions.values()) {
+            result.add(transaction);
+        }
+        return result;
     }
 }

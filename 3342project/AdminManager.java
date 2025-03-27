@@ -1,11 +1,7 @@
-package com.example.secondhandexchange.admin;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.example.secondhandexchange.user.User;
-import com.example.secondhandexchange.user.UserManager;
-import com.example.secondhandexchange.transaction.Transaction;
-import com.example.secondhandexchange.transaction.TransactionManager;
-
-public class AdminManager {
+public class AdminManager implements IAdmin {
     private UserManager userManager;
     private TransactionManager transactionManager;
 
@@ -14,12 +10,14 @@ public class AdminManager {
         this.transactionManager = transactionManager;
     }
 
-    public List<Transaction> monitorTransactions() {
-        return new ArrayList<>(transactionManager.transactions.values());
+    @Override
+    public List<ITransaction> monitorTransactions() {
+        return transactionManager.getTransactionsAsITransactionList();
     }
 
+    @Override
     public void banUser(String userId) {
-        User user = userManager.getUserById(userId);
+        IUser user = userManager.getUserById(userId);
         if (user != null) {
             user.updateCreditScore(0.0);
             System.out.println("User " + userId + " has been banned.");
@@ -28,8 +26,8 @@ public class AdminManager {
         }
     }
 
+    @Override
     public void updateSystem() {
-        // 实现系统更新逻辑
         System.out.println("System updated successfully.");
     }
 }

@@ -1,16 +1,14 @@
-package com.example.secondhandexchange.user;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserManager {
-    private Map<String, User> users;
+    private Map<String, IUser> users;
 
     public UserManager() {
         this.users = new HashMap<>();
     }
 
-    public void registerUser(User user) {
+    public void registerUser(IUser user) {
         if (!users.containsKey(user.getUserId())) {
             users.put(user.getUserId(), user);
             System.out.println("User registered successfully.");
@@ -19,9 +17,9 @@ public class UserManager {
         }
     }
 
-    public User loginUser(String userId, String password) {
+    public IUser loginUser(String userId, String password) {
         if (users.containsKey(userId)) {
-            User user = users.get(userId);
+            IUser user = users.get(userId);
             if (user.getPassword().equals(password)) {
                 return user;
             } else {
@@ -33,7 +31,7 @@ public class UserManager {
         return null;
     }
 
-    public User getUserById(String userId) {
+    public IUser getUserById(String userId) {
         return users.get(userId);
     }
 }
